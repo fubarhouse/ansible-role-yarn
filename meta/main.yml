@@ -3,7 +3,7 @@ dependencies: []
 
 galaxy_info:
   author: fubarhouse
-  description: Installs NVM, NodeJS and NPM packages.
+  description: Installs Yarn JS package manager.
   license: "license (BSD, MIT)"
   min_ansible_version: 2.1.0.0
   platforms:
