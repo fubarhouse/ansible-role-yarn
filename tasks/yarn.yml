@@ -1,0 +1,50 @@
+---
+
+- name: "Yarn | De-configure shell profiles"
+  become: yes
+  become_user: "root"
+  lineinfile:
+    dest: "/home/{{ fubarhouse_user }}/{{ item }}"
+    regexp: 'export PATH="$PATH:`yarn global bin`"'
+    line:  'export PATH="$PATH:`yarn global bin`";'
+    state: present
+  failed_when: false
+  with_items:
+    - "{{ yarn_shell_profiles }}"
+  when: yarn_clean_install
+
+- name: "Yarn | Uninstall"
+  become: yes
+  become_user: root
+  package:
+    name: yarn
+    state: absent
+  when: '"{{ ansible_os_family }}" == "Debian" or "{{ ansible_os_family }}" == "RedHat"'
+  when: yarn_clean_install
+
+- name: "Yarn | Include OS-specific tasks"
+  include: "yarn-{{ ansible_os_family }}.yml"
+  when: '"{{ ansible_os_family }}" == "Debian" or "{{ ansible_os_family }}" == "RedHat"'
+
+- name: "Yarn | Install"
+  become: yes
+  become_user: root
+  package:
+    name: yarn
+    state: latest
+  when: '"{{ ansible_os_family }}" == "Debian" or "{{ ansible_os_family }}" == "RedHat"'
+
+- name: "Yarn | Configure shell profiles"
+  become: yes
+  become_user: "root"
+  lineinfile:
+    dest: "/home/{{ fubarhouse_user }}/{{ item }}"
+    regexp: 'export PATH="$PATH:`yarn global bin`"'
+    line:  'export PATH="$PATH:`yarn global bin`";'
+    state: present
+  failed_when: false
+  with_items:
+    - "{{ yarn_shell_profiles }}"
+
+- name: "Yarn | Ensure installed"
+  shell: "which yarn"

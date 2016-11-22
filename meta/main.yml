@@ -1,0 +1,25 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: fubarhouse
+  description: Installs NVM, NodeJS and NPM packages.
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.1.0.0
+  platforms:
+  - name: Ubuntu
+    versions:
+    - precise
+    - trusty
+    - xenial
+  - name: Debian
+    versions:
+    - all
+  - name: EL
+    versions:
+    - 6
+    - 7
+  categories:
+    - system
+    - database
+    - development

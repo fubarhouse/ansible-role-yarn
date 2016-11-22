@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+  sudo: true
+  vars:
+    node_version: 6.0.0
+    node_versions: []
+    node_packages: []
+  roles:
+    - geerlingguy.git
+    - fubarhouse.curl
+    - fubarhouse.nodejs
+    - role_under_test

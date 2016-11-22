@@ -1,0 +1,15 @@
+---
+# Main tasks file for fubarhouse.nodejs
+
+- name: "Define user variable for ssh use"
+  set_fact:
+    fubarhouse_user: "{{ ansible_ssh_user }}"
+  when: ansible_ssh_user is defined and fubarhouse_user is undefined
+
+- name: "Define user variable for non-ssh use"
+  set_fact:
+    fubarhouse_user: "{{ ansible_user_id }}"
+  when: ansible_ssh_user is not defined and fubarhouse_user is undefined
+
+- include: yarn.yml
+  when: fubarhouse_npm.install_yarn
