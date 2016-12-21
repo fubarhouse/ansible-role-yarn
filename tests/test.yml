@@ -6,6 +6,10 @@
     node_version: 6.0.0
     node_versions: []
     node_packages: []
+    yarn_global_packages:
+    - name: gulp
+      version: 3.9.0
+      upgrade: yes
   roles:
     - geerlingguy.git
     - fubarhouse.curl

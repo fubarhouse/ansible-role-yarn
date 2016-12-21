@@ -11,6 +11,16 @@
 
 ## Role Variables
 
+To install global packages, use the `yarn_global_packages` array as described below.
+
+****Note****: both `version` and `upgrade` are completely optional, but `name` is required. Set to `[]` to ignore this set of tasks.
+ ````
+yarn_global_packages:
+- name: gulp 
+  version: 3.9.0
+  upgrade: yes
+```` 
+
 To enable a clean install, set `yarn_clean_install` to True.
 ````
 yarn_clean_install: False

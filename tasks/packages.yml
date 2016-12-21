@@ -1,0 +1,26 @@
+---
+
+- name: "Yarn | Get list of globally installed packages"
+  become: yes
+  become_user: "{{ fubarhouse_user }}"
+  shell: "yarn global ls"
+  register: yarn_global_ls
+  failed_when: false
+
+- name: "Yarn | Add globally installed packages"
+  become: yes
+  become_user: "{{ fubarhouse_user }}"
+  shell: "yarn global add {{ item.name }}@{{ item.version | default('') }}"
+  failed_when: false
+  when: '"{{ item.name }}@{{ item.version | default() }}" not in "{{ yarn_global_ls.stdout }}"'
+  with_items:
+  - "{{ yarn_global_packages }}"
+
+- name: "Yarn | Upgrade installed packages"
+  become: yes
+  become_user: "{{ fubarhouse_user }}"
+  shell: "yarn global upgrade {{ item.name }}"
+  failed_when: false
+  when: '"{{ item.name }}@{{ item.version | default() }}" not in "{{ yarn_global_ls.stdout }}" and "{{ item.upgrade }}" is defined and item.upgrade == true'
+  with_items:
+  - "{{ yarn_global_packages }}"

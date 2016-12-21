@@ -3,3 +3,5 @@
 yarn_clean_install: False
 yarn_shell_profiles:
   - .bash_profile
+
+yarn_global_packages: []
