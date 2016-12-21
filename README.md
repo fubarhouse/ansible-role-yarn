@@ -40,7 +40,7 @@ yarn_shell_profiles:
 ````
 - hosts: localhost
   roles:
-    - fuabrhouse.nodejs # optional
+    - fubarhouse.nodejs # optional
     - fubarhouse.yarn
 ````
 
