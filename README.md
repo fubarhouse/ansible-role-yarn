@@ -21,10 +21,18 @@ yarn_global_packages:
   upgrade: yes
 ```` 
 
-To enable a clean install, set `yarn_clean_install` to True.
+To enable a clean install, set `yarn_clean_install` to true.
 ````
-yarn_clean_install: False
+yarn_clean_install: false
 ````
+
+To specify a custom installation path for binaries, use:
+
+***Note***: binaries will be found at location `{{ yarn_global_path }}/bin` 
+````
+yarn_global_path: /usr/local
+````
+
 
 To change which shell profiles are configured, change the following array to your needs:
 ````
