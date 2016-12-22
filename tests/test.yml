@@ -5,25 +5,13 @@
   vars:
     fubarhouse_user: vagrant
     node_version: 6.0.0
-    node_versions: []
-    node_packages: []
+    node_versions: 7.0.0
+    node_packages:
+    - yosay
     yarn_global_packages:
     - name: gulp
       version: 3.9.0
       upgrade: yes
-  pre_tasks:
-  - name: "Commons | Update cache on Debian systems"
-    apt:
-      update_cache: yes
-      cache_valid_time: 600
-    changed_when: false
-    when: ansible_os_family == 'Debian'
-  - name: install npm
-    become: yes
-    become_user: root
-    package:
-      name: npm
-      state: present
   roles:
     - geerlingguy.git
     - fubarhouse.curl
