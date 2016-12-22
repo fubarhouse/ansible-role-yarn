@@ -9,22 +9,6 @@
   - "{{ yarn_global_packages }}"
   when: yarn_clean_install == true
 
-- name: "Yarn | Get global directory"
-  become: yes
-  become_user: "{{ fubarhouse_user }}"
-  shell: "yarn global bin"
-  register: yarn_bin_folder
-  failed_when: false
-
-- name: "Yarn | Make sure user can write to bin folder"
-  become: yes
-  become_user: root
-  file:
-    path: "{{ yarn_bin_folder.stdout }}"
-    state: directory
-    mode: 0755
-    owner: "{{ fubarhouse_user }}"
-
 - name: "Yarn | Get list of globally installed packages"
   become: yes
   become_user: "{{ fubarhouse_user }}"
