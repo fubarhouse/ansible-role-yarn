@@ -5,13 +5,13 @@
   become_user: "root"
   lineinfile:
     dest: "/home/{{ fubarhouse_user }}/{{ item }}"
-    regexp: 'yarn global bin'
-    line:  'export PATH="$PATH:`yarn global bin`";'
+    regexp: "PATH:{{ yarn_global_path }}/bin"
+    line:  'export PATH="$PATH:{{ yarn_global_path }}/bin";'
     state: present
   failed_when: false
   with_items:
     - "{{ yarn_shell_profiles }}"
-  when: yarn_clean_install
+  when: yarn_clean_install == true
 
 - name: "Yarn | Uninstall"
   become: yes
@@ -19,8 +19,7 @@
   package:
     name: yarn
     state: absent
-  when: '"{{ ansible_os_family }}" == "Debian" or "{{ ansible_os_family }}" == "RedHat"'
-  when: yarn_clean_install
+  when: 'yarn_clean_install == true and "{{ ansible_os_family }}" == "Debian" or "{{ ansible_os_family }}" == "RedHat"'
 
 - name: "Yarn | Include OS-specific tasks"
   include: "yarn-{{ ansible_os_family }}.yml"
