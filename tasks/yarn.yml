@@ -5,7 +5,7 @@
   become_user: "root"
   lineinfile:
     dest: "/home/{{ fubarhouse_user }}/{{ item }}"
-    regexp: 'export PATH="$PATH:`yarn global bin`"'
+    regexp: 'yarn global bin'
     line:  'export PATH="$PATH:`yarn global bin`";'
     state: present
   failed_when: false
