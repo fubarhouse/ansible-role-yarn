@@ -3,7 +3,7 @@
 - hosts: all
   sudo: true
   vars:
-    fubarhouse_user: vagrant
+#    fubarhouse_user: vagrant
     node_version: 6.0.0
     node_versions: 7.0.0
     node_packages:
