@@ -10,6 +10,13 @@
     - name: gulp
       version: 3.9.0
       upgrade: yes
+  pre_tasks:
+    - name: install npm
+      become: yes
+      become_user: root
+      package:
+        name: npm
+        state: present
   roles:
     - geerlingguy.git
     - fubarhouse.curl
