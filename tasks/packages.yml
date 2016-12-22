@@ -11,7 +11,7 @@
   become: yes
   become_user: root
   file:
-    path: "{{ yarn_bin_folder.stdout }}/../"
+    path: "{{ yarn_bin_folder.stdout }}"
     state: directory
     mode: 0755
     owner: "{{ fubarhouse_user }}"
