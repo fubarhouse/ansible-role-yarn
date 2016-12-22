@@ -1,6 +1,6 @@
 ---
 
-yarn_clean_install: true
+yarn_clean_install: false
 yarn_shell_profiles:
   - .bash_profile
 
