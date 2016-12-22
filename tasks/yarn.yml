@@ -38,8 +38,8 @@
   become_user: "root"
   lineinfile:
     dest: "/home/{{ fubarhouse_user }}/{{ item }}"
-    regexp: 'export PATH="$PATH:`yarn global bin`"'
-    line:  'export PATH="$PATH:`yarn global bin`";'
+    regexp: "PATH:{{ yarn_global_path }}/bin"
+    line:  'export PATH="$PATH:{{ yarn_global_path }}/bin";'
     state: present
   failed_when: false
   with_items:
