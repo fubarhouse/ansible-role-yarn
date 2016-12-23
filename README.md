@@ -21,6 +21,11 @@ yarn_global_packages:
   upgrade: yes
 ```` 
 
+To run `yarn self-update <version>`, set the `yarn_version` variable.
+````
+yarn_version: 0.18.1
+````
+
 To enable a clean install, set `yarn_clean_install` to true.
 ````
 yarn_clean_install: false

@@ -47,3 +47,10 @@
 
 - name: "Yarn | Ensure installed"
   shell: "which yarn"
+
+- name: "Yarn | Update as required"
+  become: yes
+  become_user: "{{ fubarhouse_user }}"
+  shell: "yarn self-update {{ yarn_version | default() }}"
+  when: 'yarn_update == true'
+  failed_when: false
