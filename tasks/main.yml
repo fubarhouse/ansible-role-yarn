@@ -13,3 +13,6 @@
 
 - name: "Include tasks for Yarn"
   include: yarn.yml
+
+- name: "Include tasks for Yarn packages"
+  include: packages.yml

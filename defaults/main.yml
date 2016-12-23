@@ -1,5 +1,12 @@
 ---
 
-yarn_clean_install: False
+yarn_clean_install: false
 yarn_shell_profiles:
   - .bash_profile
+
+yarn_global_path: /usr/local
+yarn_global_packages:
+- name: gulp
+  upgrade: true
+- name: yosay
+  upgrade: true
