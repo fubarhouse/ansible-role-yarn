@@ -4,6 +4,7 @@ yarn_clean_install: false
 yarn_shell_profiles:
   - .bash_profile
 
+yarn_update: true
 yarn_global_path: /usr/local
 yarn_global_packages:
 - name: gulp
