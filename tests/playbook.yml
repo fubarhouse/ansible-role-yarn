@@ -7,14 +7,7 @@
     install_ivm: true
     install_iojs: true
     node_version: 8.0.0
-    node_versions:
-      - 2.0.0
-      - 3.0.0
-      - 4.0.0
-      - 5.0.0
-      - 6.0.0
-      - 7.0.0
-      - 8.0.0
+    node_versions: []
     node_packages: []
     yarn_global_packages:
     - name: gulp
@@ -39,5 +32,4 @@
       failed_when: false
 
   roles:
-    - fubarhouse.nodejs
     - role_under_test
