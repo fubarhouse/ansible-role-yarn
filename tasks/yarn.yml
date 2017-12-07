@@ -25,6 +25,10 @@
   changed_when: '"Usage: yarn [command] [flags]" not in yarn_result.stdout'
   failed_when: false
 
+- name: debug
+  debug:
+    msg: "{{ yarn_result }}"
+
 - name: "Yarn | Include OS-specific tasks"
   include: "yarn-{{ ansible_os_family }}.yml"
   when:
