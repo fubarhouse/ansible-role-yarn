@@ -2,6 +2,7 @@
 
 - hosts: all
   vars:
+    yarn_update: false
     yarn_global_packages: []
 #      - name: gulp
 #        version: 3.9.0
