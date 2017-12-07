@@ -1,7 +1,8 @@
 # Ansible Role: Yarn
 
 [![Build Status](https://travis-ci.org/fubarhouse/ansible-role-yarn.svg?branch=master)](https://travis-ci.org/fubarhouse/ansible-role-yarn)
-[![Ansible Galaxy](https://img.shields.io/badge/galaxy-fubarhouse--yarn-13698.svg)](https://galaxy.ansible.com/fubarhouse/yarn)
+[![Ansible Galaxy](https://img.shields.io/ansible/role/13698.svg)](https://galaxy.ansible.com/fubarhouse/yarn)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/fubarhouse/ansible-role-yarn/master/LICENSE)
 
 * Installs [Yarn](https://github.com/yarnpkg/yarn) for managing project dependencies.
 

@@ -1,18 +1,12 @@
 ---
 
 - hosts: all
-  sudo: true
   vars:
-    nvm_install_dir: /home/travis/nvm_install_test
-    install_ivm: true
-    install_iojs: true
-    node_version: 8.0.0
-    node_versions: []
-    node_packages: []
+    nodejs_version: 8.0.0
     yarn_global_packages:
-    - name: gulp
-      version: 3.9.0
-      upgrade: yes
+      - name: gulp
+        version: 3.9.0
+        upgrade: yes
 
   pre_tasks:
 
@@ -25,33 +19,12 @@
       changed_when: false
       failed_when: false
 
-    - name: Install nodejs
-      apt:
-        name: "{{ item }}"
-        state: latest
-      with_items:
-        - nodejs
-        - npm
-      when: ansible_os_family == 'Debian'
-      changed_when: false
-      failed_when: false
-
     # RedHat
     - shell: dnf clean all --enablerepo=\*
       when: ansible_os_family == 'RedHat'
       changed_when: false
       failed_when: false
 
-    - name: Install nodejs
-      yum:
-        name: "{{ item }}"
-        state: latest
-      with_items:
-        - nodejs
-        - npm
-      when: ansible_os_family == 'RedHat'
-      changed_when: false
-      failed_when: false
-
   roles:
+    - geerlingguy.nodejs
     - role_under_test
