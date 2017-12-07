@@ -108,8 +108,6 @@ before_install:
   # Pull container.
   - 'docker pull ${docker_user}/docker-${distro}-ansible:latest'
 
-script:
-
 install:
 
   - container_id=$(mktemp)
