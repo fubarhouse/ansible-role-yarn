@@ -46,7 +46,7 @@
   failed_when: false
   with_items:
     - "{{ yarn_shell_profiles }}"
-    when: '"Usage: yarn [command] [flags]" not in yarn_result.stdout'
+  when: '"Usage: yarn [command] [flags]" not in yarn_result.stdout'
 
 - name: "Yarn | Ensure installed"
   shell: "which yarn"
