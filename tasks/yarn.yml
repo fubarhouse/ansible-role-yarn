@@ -4,7 +4,7 @@
   lineinfile:
     dest: "/home/{{ fubarhouse_user }}/{{ item }}"
     regexp: "PATH:{{ yarn_global_path }}/bin"
-    line:  'export PATH="$PATH:{{ yarn_global_path }}/bin";'
+    line:  'export PATH="\$PATH:{{ yarn_global_path }}/bin";'
     state: present
   failed_when: false
   with_items:
@@ -15,7 +15,9 @@
   package:
     name: yarn
     state: absent
-  when: 'yarn_clean_install == true and "{{ ansible_os_family }}" == "Debian" or "{{ ansible_os_family }}" == "RedHat"'
+  when:
+    - 'yarn_clean_install == true'
+    - 'ansible_os_family == "Debian" or ansible_os_family == "RedHat"'
 
 - name: "Yark | Check for installation"
   shell: yarn --help
@@ -26,7 +28,7 @@
 - name: "Yarn | Include OS-specific tasks"
   include: "yarn-{{ ansible_os_family }}.yml"
   when:
-    - '"{{ ansible_os_family }}" == "Debian" or "{{ ansible_os_family }}" == "RedHat"'
+    - 'ansible_os_family == "Debian" or ansible_os_family == "RedHat"'
     - '"Usage: yarn [command] [flags]" not in yarn_result.stdout'
 
 - name: "Yarn | Install"
@@ -34,7 +36,7 @@
     name: yarn
     state: latest
   when:
-    - '"{{ ansible_os_family }}" == "Debian" or "{{ ansible_os_family }}" == "RedHat"'
+    - 'ansible_os_family == "Debian" or ansible_os_family == "RedHat"'
     - '"Usage: yarn [command] [flags]" not in yarn_result.stdout'
 
 - name: "Yarn | Configure shell profiles"
