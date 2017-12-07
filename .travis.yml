@@ -124,7 +124,10 @@ install:
 
   # Test role idempotence.
   - idempotence=$(mktemp)
-  - docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook} | tee -a ${idempotence}
+  - >
+    docker exec "$(cat ${container_id})"
+    ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook} --sudo
+    | tee -a ${idempotence}
   - >
     tail ${idempotence}
     | grep -q 'changed=0.*failed=0'
