@@ -108,7 +108,7 @@ before_install:
   # Pull container.
   - 'docker pull ${docker_user}/docker-${distro}-ansible:latest'
 
-install:
+script:
 
   - container_id=$(mktemp)
   # Run container in detached state.
