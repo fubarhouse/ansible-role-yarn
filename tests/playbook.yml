@@ -2,7 +2,6 @@
 
 - hosts: all
   vars:
-    nodejs_version: 8.0.0
     yarn_global_packages:
       - name: gulp
         version: 3.9.0
