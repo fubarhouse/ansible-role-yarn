@@ -25,8 +25,30 @@
       changed_when: false
       failed_when: false
 
+    - name: Install nodejs
+      apt:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - nodejs
+        - npm
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+      failed_when: false
+
     # RedHat
     - shell: dnf clean all --enablerepo=\*
+      when: ansible_os_family == 'RedHat'
+      changed_when: false
+      failed_when: false
+
+    - name: Install nodejs
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - nodejs
+        - npm
       when: ansible_os_family == 'RedHat'
       changed_when: false
       failed_when: false
