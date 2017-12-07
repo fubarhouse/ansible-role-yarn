@@ -2,10 +2,10 @@
 
 - hosts: all
   vars:
-    yarn_global_packages:
-      - name: gulp
-        version: 3.9.0
-        upgrade: yes
+    yarn_global_packages: []
+#      - name: gulp
+#        version: 3.9.0
+#        upgrade: yes
 
   pre_tasks:
 
