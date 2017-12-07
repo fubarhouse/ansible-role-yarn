@@ -3,15 +3,41 @@
 - hosts: all
   sudo: true
   vars:
-#    fubarhouse_user: vagrant
-    node_version: 9.0.0
-    node_versions: []
-    node_packages:
-    - yosay
+    nvm_install_dir: /home/travis/nvm_install_test
+    install_ivm: true
+    install_iojs: true
+    node_version: 8.0.0
+    node_versions:
+      - 2.0.0
+      - 3.0.0
+      - 4.0.0
+      - 5.0.0
+      - 6.0.0
+      - 7.0.0
+      - 8.0.0
+    node_packages: []
     yarn_global_packages:
     - name: gulp
       version: 3.9.0
       upgrade: yes
+
+  pre_tasks:
+
+    # Debian
+    - name: Update apt cache.
+      apt:
+        update_cache: yes
+        cache_valid_time: 600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+      failed_when: false
+
+    # RedHat
+    - shell: dnf clean all --enablerepo=\*
+      when: ansible_os_family == 'RedHat'
+      changed_when: false
+      failed_when: false
+
   roles:
     - fubarhouse.nodejs
     - role_under_test
