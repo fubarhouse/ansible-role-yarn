@@ -1,8 +1,6 @@
 ---
 
 - name: "Yarn | De-configure shell profiles"
-  become: yes
-  become_user: "root"
   lineinfile:
     dest: "/home/{{ fubarhouse_user }}/{{ item }}"
     regexp: "PATH:{{ yarn_global_path }}/bin"
@@ -14,8 +12,6 @@
   when: yarn_clean_install == true
 
 - name: "Yarn | Uninstall"
-  become: yes
-  become_user: root
   package:
     name: yarn
     state: absent
@@ -25,17 +21,16 @@
   include: "yarn-{{ ansible_os_family }}.yml"
   when: '"{{ ansible_os_family }}" == "Debian" or "{{ ansible_os_family }}" == "RedHat"'
 
+- name: "Yark | Check for installation"
+
+
 - name: "Yarn | Install"
-  become: yes
-  become_user: root
   package:
     name: yarn
     state: latest
   when: '"{{ ansible_os_family }}" == "Debian" or "{{ ansible_os_family }}" == "RedHat"'
 
 - name: "Yarn | Configure shell profiles"
-  become: yes
-  become_user: "root"
   lineinfile:
     dest: "/home/{{ fubarhouse_user }}/{{ item }}"
     regexp: "PATH:{{ yarn_global_path }}/bin"
@@ -49,8 +44,6 @@
   shell: "which yarn"
 
 - name: "Yarn | Update as required"
-  become: yes
-  become_user: "{{ fubarhouse_user }}"
   shell: "yarn self-update {{ yarn_version | default() }}"
   when: 'yarn_update == true'
   failed_when: false
