@@ -25,5 +25,4 @@
       failed_when: false
 
   roles:
-    - geerlingguy.nodejs
     - role_under_test
