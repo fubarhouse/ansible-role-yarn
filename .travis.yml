@@ -2,21 +2,106 @@
 services: docker
 
 env:
-  - distro: centos6
+  - docker_user: geerlingguy
+    distro: ubuntu1204
     init: /sbin/init
-    run_opts: ""
-  - distro: centos7
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: ubuntu1210
+    init: /sbin/init
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: ubuntu1304
+    init: /sbin/init
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: ubuntu1310
+    init: /sbin/init
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: geerlingguy
+    distro: ubuntu1404
+    init: /sbin/init
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: ubuntu1410
+    init: /sbin/init
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: ubuntu1504
+    init: /sbin/init
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: ubuntu1510
+    init: /sbin/init
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: geerlingguy
+    distro: ubuntu1604
+    init: /sbin/init
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: ubuntu1610
+    init: /sbin/init
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: ubuntu1704
+    init: /sbin/init
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: ubuntu1710
+    init: /sbin/init
+    run_opts: "--privileged"
+    playbook: playbook.yml
+  - docker_user: geerlingguy
+    distro: centos6
+    init: "/sbin/init"
+    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    playbook: playbook.yml
+  - docker_user: geerlingguy
+    distro: centos7
     init: /usr/lib/systemd/systemd
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: ubuntu1204
-    init: /sbin/init
-    run_opts: ""
-  - distro: ubuntu1404
-    init: /sbin/init
-    run_opts: ""
-  - distro: ubuntu1604
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: debian7
     init: /lib/systemd/systemd
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    playbook: playbook.yml
+  - docker_user: geerlingguy
+    distro: debian8
+    init: /lib/systemd/systemd
+    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: debian9
+    init: /lib/systemd/systemd
+    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: fedora24
+    init: /usr/lib/systemd/systemd
+    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: fedora25
+    init: /usr/lib/systemd/systemd
+    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    playbook: playbook.yml
+  - docker_user: fubarhouse
+    distro: fedora26
+    init: /usr/lib/systemd/systemd
+    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    playbook: playbook.yml
 
 before_install:
 
@@ -30,19 +115,17 @@ script:
   - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} geerlingguy/docker-${distro}-ansible:latest "${init}" > "${container_id}"'
 
   # Install dependencies.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-galaxy install geerlingguy.git'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-galaxy install fubarhouse.curl'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-galaxy install fubarhouse.nodejs'
 
   # Ansible syntax check.
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check -vvvv'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook} --syntax-check -vvvv'
 
   # Test role.
-  - 'docker exec "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml'
+  - 'docker exec "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook}'
 
   # Test role idempotence.
   # - idempotence=$(mktemp)
-  # - docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml | tee -a ${idempotence}
+  # - docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/role_under_test/tests/playbook.yml | tee -a ${idempotence}
   # - >
   #   tail ${idempotence}
   #   | grep -q 'changed=0.*failed=0'
