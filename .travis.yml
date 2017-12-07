@@ -1,6 +1,8 @@
 ---
 services: docker
 
+node_js:
+  - 8
 env:
   - docker_user: geerlingguy
     distro: ubuntu1204
