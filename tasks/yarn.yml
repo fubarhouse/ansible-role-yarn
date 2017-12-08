@@ -2,9 +2,9 @@
 
 - name: "Yarn | De-configure shell profiles"
   lineinfile:
-    dest: "/home/{{ fubarhouse_user }}/{{ item }}"
+    dest: "{{ fubarhouse_user_dir }}/{{ item }}"
     regexp: "PATH:{{ yarn_global_path }}/bin"
-    line:  'export PATH="\$PATH:{{ yarn_global_path }}/bin";'
+    line:  'export PATH="$PATH:{{ yarn_global_path }}/bin";'
     state: present
   failed_when: false
   with_items:
@@ -49,7 +49,7 @@
 
 - name: "Yarn | Configure shell profiles"
   lineinfile:
-    dest: "/home/{{ fubarhouse_user }}/{{ item }}"
+    dest: "{{ fubarhouse_user_dir }}/{{ item }}"
     regexp: "PATH:{{ yarn_global_path }}/bin"
     line:  'export PATH="$PATH:{{ yarn_global_path }}/bin";'
     state: present
