@@ -18,21 +18,33 @@
   when:
     - 'yarn_clean_install == true'
 
-- name: "Yark | Check for installation"
+- name: "Yarn | Check for installation"
   shell: yarn --help
   register: yarn_result
-  changed_when: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout'
+  changed_when: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout and "is not supported, please use Node.js" not in yarn_result.stdout'
   failed_when: false
+
+- name: "Yarn | Register existing installation status"
+  set_fact:
+    yarn_install_state: true
+  changed_when: false
+  when: '"Usage" in yarn_result.stdout or "Yarn requires Node" in yarn_result.stdout or "is not supported, please use Node.js" in yarn_result.stdout'
+
+- name: "Yarn | Register existing installation status"
+  set_fact:
+    yarn_install_state: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout and "is not supported, please use Node.js" not in yarn_result.stdout'
+  changed_when: false
+  when: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout and "is not supported, please use Node.js" not in yarn_result.stdout'
 
 - name: "Yarn | Include OS-specific tasks"
   include: "yarn-{{ ansible_os_family }}.yml"
-  when: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout'
+  when: 'yarn_install_state|bool == true'
 
 - name: "Yarn | Install"
   package:
     name: yarn
     state: latest
-  when: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout'
+  when: 'yarn_install_state|bool == true'
 
 - name: "Yarn | Configure shell profiles"
   lineinfile:
@@ -43,11 +55,11 @@
   failed_when: false
   with_items:
     - "{{ yarn_shell_profiles }}"
-  when: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout'
+  when: 'yarn_install_state|bool == true'
 
 - name: "Yarn | Ensure installed"
   shell: "which yarn"
-  when: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout'
+  when: 'yarn_install_state|bool == true'
 
 - name: "Yarn | Update as required"
   shell: "yarn self-update {{ yarn_version | default() }}"
