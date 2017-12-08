@@ -22,6 +22,7 @@
   shell: yarn --help
   register: yarn_result
   changed_when: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout and "is not supported, please use Node.js" not in yarn_result.stdout'
+  changed_when: false
   failed_when: false
 
 - name: "Yarn | Register existing installation status"
