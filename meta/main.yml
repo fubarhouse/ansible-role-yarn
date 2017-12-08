@@ -9,17 +9,29 @@ galaxy_info:
   platforms:
   - name: Ubuntu
     versions:
-    - precise
-    - trusty
+    - artful
+    - zesty
+    - yakkety
     - xenial
-  - name: Debian
-    versions:
-    - all
+    - vivid
+    - wily
+    - utopic
+    - trusty
+    - saucy
+    - raring
+    - quantal
+    - precise
   - name: EL
     versions:
     - 6
     - 7
+  - name: Debian
+    versions:
+    - wheezy
+    - jessie
+    - stretch
   categories:
-    - system
-    - database
-    - development
+    - javascript
+    - yarn
+    - package
+    - manager
