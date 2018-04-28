@@ -23,7 +23,7 @@
   when: fubarhouse_user_dir is not defined
 
 - name: "Include tasks for Yarn"
-  include: yarn.yml
+  include_tasks: yarn.yml
 
 - name: "Include tasks for Yarn packages"
-  include: packages.yml
+  include_tasks: packages.yml

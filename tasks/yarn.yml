@@ -22,7 +22,6 @@
   shell: which yarn
   register: yarn_result
   changed_when: '"yarn" not in yarn_result.stdout'
-  changed_when: false
   failed_when: false
 
 - name: "Yarn | Register existing installation status"
@@ -38,7 +37,7 @@
   when: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout and "is not supported, please use Node.js" not in yarn_result.stdout'
 
 - name: "Yarn | Include OS-specific tasks"
-  include: "yarn-{{ ansible_os_family }}.yml"
+  include_tasks: "yarn-{{ ansible_os_family }}.yml"
   when: 'yarn_install_state|bool == true'
 
 - name: "Yarn | Install"
