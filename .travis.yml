@@ -32,7 +32,7 @@ env:
   - distro: fedora26
   - distro: fedora27
   - distro: fedora28
-  - distro: fedora29
+  # - distro: fedora29
 
 before_install:
   - sudo pip install --upgrade pip
