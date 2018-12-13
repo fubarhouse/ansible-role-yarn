@@ -62,47 +62,47 @@ env:
     playbook: playbook.yml
   - distro: centos-6
     init: /sbin/init
-    run_opts: "" --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: centos-7
     init: /usr/lib/systemd/systemd
-    run_opts: "" --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: wheezy
     init: /bin/systemd
-    run_opts: "" --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: jessie
     init: /lib/systemd/systemd
-    run_opts: "" --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: stretch
     init: /bin/systemd
-    run_opts: "" --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: buster
     init: /bin/systemd
-    run_opts: "" --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: fedora-24
     init: /usr/lib/systemd/systemd
-    run_opts: "" --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: fedora-25
     init: /usr/lib/systemd/systemd
-    run_opts: "" --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: fedora-26
     init: /usr/lib/systemd/systemd
-    run_opts: "" --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: fedora-27
     init: /usr/lib/systemd/systemd
-    run_opts: "" --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: fedora-28
     init: /usr/lib/systemd/systemd
-    run_opts: "" --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
 
 before_install:
