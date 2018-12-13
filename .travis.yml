@@ -10,99 +10,99 @@ env:
   # Source installation tests.
   - distro: precise
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: quantal
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: raring
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: saucy
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: trusty
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: utopic
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: vivid
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: wily
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: xenial
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: yakkety
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: zesty
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: artful
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: bionic
     init: /sbin/init
-    run_opts: --privileged
+    run_opts: ""
     playbook: playbook.yml
   - distro: centos-6
     init: /sbin/init
-    run_opts: --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: centos-7
     init: /usr/lib/systemd/systemd
-    run_opts: --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: wheezy
     init: /bin/systemd
-    run_opts: --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: jessie
     init: /lib/systemd/systemd
-    run_opts: --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: stretch
     init: /bin/systemd
-    run_opts: --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: buster
     init: /bin/systemd
-    run_opts: --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: fedora-24
     init: /usr/lib/systemd/systemd
-    run_opts: --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: fedora-25
     init: /usr/lib/systemd/systemd
-    run_opts: --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: fedora-26
     init: /usr/lib/systemd/systemd
-    run_opts: --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: fedora-27
     init: /usr/lib/systemd/systemd
-    run_opts: --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
   - distro: fedora-28
     init: /usr/lib/systemd/systemd
-    run_opts: --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
+    run_opts: --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
     playbook: playbook.yml
 
 before_install:
@@ -121,12 +121,12 @@ script:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook} --syntax-check'
 
   # Test role.
-  - 'travis_wait 30 docker exec "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook} --sudo'
+  - 'travis_wait 30 docker exec "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook}'
 
   - idempotence=$(mktemp)
   - >
     docker exec "$(cat ${container_id})"
-    ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook} --sudo
+    ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook}
     | tee -a ${idempotence}
   - >
     tail ${idempotence}
