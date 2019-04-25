@@ -9,17 +9,17 @@
   failed_when: false
   with_items:
     - "{{ yarn_shell_profiles }}"
-  when: yarn_clean_install == true
+  when: yarn_clean_install
 
 - name: "Yarn | Uninstall"
   package:
     name: yarn
     state: absent
   when:
-    - 'yarn_clean_install == true'
+    - yarn_clean_install
 
 - name: "Yarn | Check for installation"
-  shell: which yarn
+  command: which yarn
   register: yarn_result
   changed_when: false
   failed_when: false
@@ -30,21 +30,28 @@
   changed_when: false
   when: '"yarn" in yarn_result.stdout'
 
-- name: "Yarn | Register existing installation status"
+- name: "Yarn | Register existing installation status (true)"
   set_fact:
-    yarn_install_state: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout and "is not supported, please use Node.js" not in yarn_result.stdout'
+    yarn_install_state: false
   changed_when: false
-  when: '"Usage" not in yarn_result.stdout and "Yarn requires Node" not in yarn_result.stdout and "is not supported, please use Node.js" not in yarn_result.stdout'
+  when:
+    - '"Usage" not in yarn_result.stdout'
+    - '"Yarn requires Node" not in yarn_result.stdout'
+    - '"is not supported, please use Node.js" not in yarn_result.stdout'
 
 - name: "Yarn | Include OS-specific tasks"
   include_tasks: "yarn-{{ ansible_os_family }}.yml"
-  when: 'yarn_install_state|bool == true'
+  when: yarn_install_state
 
 - name: "Yarn | Install"
   package:
     name: yarn
-    state: latest
-  when: 'yarn_install_state|bool == true'
+    state: present
+  when: yarn_install_state
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: "Yarn | Configure shell profiles"
   lineinfile:
@@ -55,14 +62,14 @@
   failed_when: false
   with_items:
     - "{{ yarn_shell_profiles }}"
-  when: 'yarn_install_state|bool == true'
+  when: yarn_install_state
 
 - name: "Yarn | Ensure installed"
-  shell: "which yarn"
-  when: 'yarn_install_state|bool == true'
+  command: "which yarn"
+  when: yarn_install_state
 
 - name: "Yarn | Update as required"
-  shell: "yarn self-update {{ yarn_version | default() }}"
-  when: 'yarn_update == true'
+  command: "yarn self-update {{ yarn_version | default() }}"
+  when: yarn_update
   changed_when: false
   failed_when: false

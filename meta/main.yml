@@ -41,7 +41,7 @@ galaxy_info:
         - artful
         - bionic
         - cosmic
-  categories:
+  galaxy_tags:
     - javascript
     - yarn
     - package
