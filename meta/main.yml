@@ -41,6 +41,7 @@ galaxy_info:
         - artful
         - bionic
         - cosmic
+        - disco
   categories:
     - javascript
     - yarn
