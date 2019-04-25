@@ -37,6 +37,8 @@ env:
 before_install:
   - sudo pip install --upgrade pip
   - sudo pip install ansible
+  - sudo pip install ansible-lint
+  - ansible-lint . || true
   - go get -v github.com/fubarhouse/ansible-role-tester
 
 script:
