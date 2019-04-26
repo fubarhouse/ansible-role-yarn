@@ -1,6 +1,6 @@
 ---
 go:
-  - 1.10
+  - 1.12
 python:
   - 2.7
 
@@ -21,9 +21,9 @@ env:
   - distro: ubuntu1710
   - distro: ubuntu1804
   - distro: ubuntu1810
+  - distro: ubuntu1904
   - distro: centos6
   - distro: centos7
-  # - distro: debian7
   - distro: debian8
   - distro: debian9
   - distro: debian10
@@ -32,11 +32,15 @@ env:
   - distro: fedora26
   - distro: fedora27
   - distro: fedora28
-  # - distro: fedora29
+  - distro: fedora29
+  - distro: fedora30
+  - distro: fedora31
 
 before_install:
   - sudo pip install --upgrade pip
   - sudo pip install ansible
+  - sudo pip install ansible-lint
+  - ansible-lint . || true
   - go get -v github.com/fubarhouse/ansible-role-tester
 
 script:

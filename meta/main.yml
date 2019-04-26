@@ -9,7 +9,6 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        # - wheezy
         - jessie
         - stretch
         - buster
@@ -24,7 +23,9 @@ galaxy_info:
         - 26
         - 27
         - 28
-        # - 29
+        - 29
+        - 30
+        - 31
     - name: Ubuntu
       versions:
         - precise
@@ -41,7 +42,8 @@ galaxy_info:
         - artful
         - bionic
         - cosmic
-  categories:
+        - disco
+  galaxy_tags:
     - javascript
     - yarn
     - package
